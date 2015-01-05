@@ -1,5 +1,5 @@
 function git_history {
-  git log $filename | grep "Date: "
+  git log --date=iso $filename | grep "Date:" | sed 's/-/ /g'
 }
 
 function first_commit {
@@ -18,13 +18,13 @@ function legible_output {
   # $2:   filename
   # $1:   lines of code
   # $3:   number of commits
+  # $5:   year (first)
   # $6:   month (first)
-  # $7:   date (first)
-  # $9:   year (first)
-  # $13:  month (last)
-  # $14:  date (last)
-  # $16:  year (last)
-  awk '{print $2 "," $1 "," $3 "," $6 " " $7 " " $9 "," $13 " " $14 " " $16}'
+  # $7:   day (first)
+  # $11:  year (last)
+  # $12:  month (last)
+  # $13:  day (last)
+  awk '{print $2 "," $1 "," $3 "," $5 "-" $6 "-" $7 "," $11 "-" $12 "-" $13}'
 }
 
 function csv_lines_for {
